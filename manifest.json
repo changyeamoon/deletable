@@ -21,5 +21,11 @@
     },
     "default_popup": "popup.html"
   },
+  "icons": {
+    "16": "assests/tab.png",
+    "32": "assests/tab.png",
+    "48": "assests/tab.png",
+    "128": "assests/tab.png"
+  },
   "manifest_version": 2
 }
