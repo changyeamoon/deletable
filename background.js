@@ -1,10 +1,10 @@
-const tabsTimer = {};
-var myAudio = new Audio();
-myAudio.src = "assests/wompwomp.mp3";
+var tabsTimer = {};
+const myAudio = new Audio();
+myAudio.src = 'assests/wompwomp.mp3';
 
 
 chrome.runtime.onInstalled.addListener(() => {
-  const tabsTimer = {};
+  this.tabsTimer = {};
   chrome.storage.sync.set({ color: '#3aa757' }, () => {
     console.log('The color is what.');
   });
@@ -29,9 +29,9 @@ chrome.tabs.onCreated.addListener((currTab) => {
 // onHighlighted but not onCreated to make a change to alarm
 
 chrome.tabs.onHighlighted.addListener((highlighted) => {
-  chrome.alarms.clear(`timer${highlighted.tabIds}`);
-
-
+//   window.alert(highlighted.tabIds);
+//   chrome.alarms.clear(`timer${highlighted.tabIds}`);
+//   delete tabsTimer[highlighted.tabIds];
 
   chrome.tabs.query({ currentWindow: true, active: false }, (tabs) => {
     // window.alert(`this current${highlighted.tabIds}`);
