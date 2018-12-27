@@ -1,8 +1,8 @@
-const tabsTimer = {};
+let tabsTimer = {};
 
 
 chrome.runtime.onInstalled.addListener(() => {
-  const tabsTimer = {};
+  tabsTimer = {};
   chrome.storage.sync.set({ color: '#3aa757' }, () => {
     console.log('The color is what.');
   });
@@ -48,6 +48,7 @@ chrome.alarms.onAlarm.addListener((alarmDone) => {
     if (tabEntry[1] === alarmDone.name) {
     //   window.alert(`tab id: ${typeof tabEntry[0]}`);
       chrome.tabs.remove(parseInt(tabEntry[0], 10));
+      delete tabsTimer[tabEntry[0]];
     }
   });
 });
