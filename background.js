@@ -6,16 +6,20 @@ chrome.runtime.onInstalled.addListener(() => {
 
 
 chrome.tabs.onCreated.addListener(() => {
+  chrome.alarms.create('timer', { delayInMinutes: 1 });
+
+
+  //   chrome.tabs.query({ currentWindow: true, active: false }, (tabs) => {
+  //     tabs.forEach((tabObj) => {
+  //       chrome.tabs.remove(tabObj.id);
+  //     });
+  //   });
+});
+
+chrome.alarms.onAlarm.addListener(() => {
   chrome.tabs.query({ currentWindow: true, active: false }, (tabs) => {
     tabs.forEach((tabObj) => {
       chrome.tabs.remove(tabObj.id);
     });
   });
-
-
-  chrome.alarms.create('timer', { delayinMinutes: 1 });
-  window.alert('alarm called');
-  //   chrome.alarms.onAlarm.addListener((alarm) => {
-
-//   });
 });
