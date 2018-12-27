@@ -1,10 +1,9 @@
-var tabsTimer = {};
-const myAudio = new Audio();
-myAudio.src = 'assests/wompwomp.mp3';
+let tabsTimer = {};
+const audio = new Audio('assests/wompwomp.mp3');
 
 
 chrome.runtime.onInstalled.addListener(() => {
-  this.tabsTimer = {};
+  tabsTimer = {};
   chrome.storage.sync.set({ color: '#3aa757' }, () => {
     console.log('The color is what.');
   });
@@ -29,9 +28,10 @@ chrome.tabs.onCreated.addListener((currTab) => {
 // onHighlighted but not onCreated to make a change to alarm
 
 chrome.tabs.onHighlighted.addListener((highlighted) => {
-//   window.alert(highlighted.tabIds);
-//   chrome.alarms.clear(`timer${highlighted.tabIds}`);
-//   delete tabsTimer[highlighted.tabIds];
+  if (tabsTimer[highlighted.tabIds]) {
+    chrome.alarms.clear(`timer${highlighted.tabIds}`);
+    delete tabsTimer[highlighted.tabIds];
+  }
 
   chrome.tabs.query({ currentWindow: true, active: false }, (tabs) => {
     // window.alert(`this current${highlighted.tabIds}`);
@@ -53,7 +53,9 @@ chrome.alarms.onAlarm.addListener((alarmDone) => {
     if (tabEntry[1] === alarmDone.name) {
     //   window.alert(`tab id: ${typeof tabEntry[0]}`);
       chrome.tabs.remove(parseInt(tabEntry[0], 10));
-      myAudio.play();
+      delete tabsTimer[tabEntry[0]];
+      audio.currentTime = 0;
+      audio.play();
     }
   });
 });
