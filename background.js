@@ -26,7 +26,10 @@ chrome.tabs.onCreated.addListener((currTab) => {
 
 
 chrome.tabs.onHighlighted.addListener((highlighted) => {
-  chrome.alarms.clear(`timer${highlighted.tabIds}`);
+  if (tabsTimer[highlighted.tabIds]) {
+    chrome.alarms.clear(`timer${highlighted.tabIds}`);
+    delete tabsTimer[highlighted.tabIds];
+  }
 
   chrome.tabs.query({ currentWindow: true, active: false }, (tabs) => {
     // window.alert(`this current${highlighted.tabIds}`);
