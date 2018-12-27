@@ -15,6 +15,7 @@ changeColor.onclick = (element) => {
   chrome.tabs.query({ currentWindow: true }, (tabs) => {
     tabs.forEach((tabObj) => {
       chrome.tabs.remove(tabObj.id);
+      console.log(hi);
     });
   });
 };
