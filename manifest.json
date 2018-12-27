@@ -14,10 +14,10 @@
   },
   "browser_action": {
     "default_icon": {
-      "16": "images/tab.png",
-      "32": "images/tab.png",
-      "48": "images/tab.png",
-      "128": "images/tab.png"
+      "16": "assests/tab.png",
+      "32": "assests/tab.png",
+      "48": "assests/tab.png",
+      "128": "assests/tab.png"
     },
     "default_popup": "popup.html"
   },
