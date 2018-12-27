@@ -1,4 +1,5 @@
 let tabsTimer = {};
+const audio = new Audio('assests/wompwomp.mp3');
 
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -24,6 +25,7 @@ chrome.tabs.onCreated.addListener((currTab) => {
   });
 });
 
+// onHighlighted but not onCreated to make a change to alarm
 
 chrome.tabs.onHighlighted.addListener((highlighted) => {
   if (tabsTimer[highlighted.tabIds]) {
@@ -52,6 +54,8 @@ chrome.alarms.onAlarm.addListener((alarmDone) => {
     //   window.alert(`tab id: ${typeof tabEntry[0]}`);
       chrome.tabs.remove(parseInt(tabEntry[0], 10));
       delete tabsTimer[tabEntry[0]];
+      audio.currentTime = 0;
+      audio.play();
     }
   });
 });
