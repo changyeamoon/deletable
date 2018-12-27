@@ -1,4 +1,6 @@
 chrome.runtime.onInstalled.addListener(() => {
+  // add functionality on onInstalled to turn off app if
+  // button is clicked
   chrome.storage.sync.set({ color: '#3aa757' }, () => {
     console.log('The color is green.');
   });
@@ -18,9 +20,16 @@ chrome.tabs.onCreated.addListener(() => {
 //   chrome.alarms.clear('timer');
 // })
 
+var myAudio = new Audio();
+myAudio.src = "wompwomp.mp3";
+
 chrome.alarms.onAlarm.addListener(() => {
   chrome.tabs.query({ currentWindow: true, active: false }, (tabs) => {
     tabs.forEach((tabObj) => {
+      myAudio.play();
+      chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+        
+      });
       chrome.tabs.remove(tabObj.id);
     });
   });
